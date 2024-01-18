@@ -1,21 +1,18 @@
-public class ConcretePlayer implements Player {
-    //creat class to the real player
-    private boolean isPlayerOne;
-    private int countWins;
+import java.util.Objects;
 
-    public ConcretePlayer(boolean isPlayerOne) {
-        this.isPlayerOne = isPlayerOne;
-        countWins = 0;
+public class ConcretePlayer implements Player{//player one = true = defender.
+    private int Wins;
+    private boolean _WhichPlayer;
+    public ConcretePlayer (boolean player){
+        Wins = 0;
+        _WhichPlayer = player;
     }
-
     @Override
-    public boolean isPlayerOne() {
-        return isPlayerOne;
-
-    }
-
+    //The name 'isPlayerOne' suggests that the method returns true for playerOne and false for playerTwo
+    public boolean isPlayerOne() {return _WhichPlayer;}
     @Override
-    public int getWins() {
-        return countWins;
+    public int getWins() {return Wins;}
+    public void addWins(){
+        Wins++;
     }
 }
