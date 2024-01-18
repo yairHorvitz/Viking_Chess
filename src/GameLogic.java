@@ -67,6 +67,7 @@ public class GameLogic implements PlayableLogic {
         if ((b.getX() != a.getX()) && (b.getY() != a.getY())// check that the piece is not walk diagonally
                  || Position.equalsPosition(b, a))// check that the piece is not stay in his place
         {return false;}
+        
 
          if(a.getX()==b.getX())//check that the piece don't walk on other player in his raw
             {
