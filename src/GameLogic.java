@@ -5,6 +5,7 @@ public class GameLogic implements PlayableLogic{
     private boolean flagTurns = false;//A Boolean value that will help transfer turns
     ConcretePiece [][] map = new ConcretePiece [11][11];
 
+
     ConcretePlayer defender = new ConcretePlayer(true);// this player own the king
     ConcretePlayer attacker = new ConcretePlayer(false);// need to play first
     ConcretePiece[] attackPositions = {
