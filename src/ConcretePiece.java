@@ -4,7 +4,7 @@ public abstract class ConcretePiece implements Piece{
     private Player _owner;
     private String _ID;
     private int _number;
-    public ArrayList <Position> _positions = new ArrayList<>();
+    protected ArrayList <Position> _positions = new ArrayList<>();
     public ConcretePiece (Player player , String id, int number, Position position){
         _owner = player;
         _ID = id;

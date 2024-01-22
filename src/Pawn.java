@@ -5,7 +5,7 @@ public class Pawn extends ConcretePiece {
     private String _ID;
     private Player _player;
     private int _number;
-    private ArrayList <Position> _positions = new ArrayList<>();
+    //private ArrayList <Position> _positions = new ArrayList<>();
 
     //constructor
     public Pawn (Player attackerOrDefender, String id,int number,Position position){
@@ -14,7 +14,7 @@ public class Pawn extends ConcretePiece {
          _player = attackerOrDefender;
          _ID = id;
          _number = number;
-       _positions.add(position);
+      // _positions.add(position);
     }
 
     //function

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class GameLogic implements PlayableLogic{
 
     private boolean flagTurns = false;//A Boolean value that will help transfer turns
@@ -178,12 +180,47 @@ public class GameLogic implements PlayableLogic{
     @Override
     public boolean isGameFinished() {
        if(isKingAtEdge()){
-           if(!isSecondPlayerTurn()){attacker.addWins();}//Added a win to the last player who played
+           //if(!isSecondPlayerTurn()){attacker.addWins();}//Added a win to the last player who played
+           //Arrays.sort(defencePositions,new CompareByKills());
+           Arrays.sort(defencePositions,new ComparatorBySteps());
+           for (int i = 0; i < defencePositions.length; i++) {
+               if(defencePositions[i]._positions.size() == 1){continue;}
+               System.out.print(defencePositions[i].get_ID() + ":");
+               System.out.print("[");
+               defencePositions[i].getAllPositions();
+               System.out.println("]");
+           }
+           Arrays.sort(attackPositions,new ComparatorBySteps());
+           for (int i = 0; i < attackPositions.length; i++) {
+               if(attackPositions[i]._positions.size() == 1){continue;}
+               System.out.print(attackPositions[i].get_ID() + ":");
+               System.out.print("[");
+               attackPositions[i].getAllPositions();
+               System.out.println("]");
+
+           }
            if(isSecondPlayerTurn()){defender.addWins();}
            return true;}
+
        if(theKingIsSurrunder()){
+           Arrays.sort(attackPositions,new ComparatorBySteps());
+           for (int i = 0; i < attackPositions.length; i++) {
+               if(attackPositions[i]._positions.size() == 1){continue;}
+               System.out.print(attackPositions[i].get_ID() + ":");
+               System.out.print("[");
+               attackPositions[i].getAllPositions();
+               System.out.println("]");
+           }
+           Arrays.sort(defencePositions,new ComparatorBySteps());
+           for (int i = 0; i < defencePositions.length; i++) {
+               if(defencePositions[i]._positions.size() == 1){continue;}
+               System.out.print(defencePositions[i].get_ID() + ":");
+               System.out.print("[");
+               defencePositions[i].getAllPositions();
+               System.out.println("]");
+           }
            if(!isSecondPlayerTurn()){attacker.addWins();}//Added a win to the last player who played
-           if(isSecondPlayerTurn()){defender.addWins();}
+           //if(isSecondPlayerTurn()){defender.addWins();}
            return true;}
 
         return false;
@@ -270,11 +307,42 @@ public class GameLogic implements PlayableLogic{
                     ((Pawn) getPieceAtPosition(b)).addKills();
                 }
             }
+            if(b.get_x() == 0 || b.get_x() == 10){//The king's corner is also considered the edge (and you can eat with it)
+                if(b.get_y() == 8){
+                    if(map[b.get_x()][b.get_y()+1]!=null && !map[b.get_x()][b.get_y()+1].getType().equals("♔") && !map[b.get_x()][b.get_y()+1].getOwner().equals(map[b.get_x()][b.get_y()].getOwner())){
+                        map[b.get_x()][b.get_y()+1] = null;
+                        ((Pawn) getPieceAtPosition(b)).addKills();
+                    }
+                }
+                if(b.get_y() == 2){
+                    if(map[b.get_x()][b.get_y()-1]!=null && !map[b.get_x()][b.get_y()-1].getType().equals("♔") && !map[b.get_x()][b.get_y()-1].getOwner().equals(map[b.get_x()][b.get_y()].getOwner())){
+                        map[b.get_x()][b.get_y() - 1] = null;
+                        ((Pawn) getPieceAtPosition(b)).addKills();
+                    }
+                }
+            }
+            if(b.get_y() == 0 || b.get_y() == 10){//The king's corner is also considered the edge (and you can eat with it)
+                if(b.get_x() == 2){
+                    if(map[b.get_x()-1][b.get_y()]!=null && !map[b.get_x()-1][b.get_y()].getType().equals("♔") && !map[b.get_x()-1][b.get_y()].getOwner().equals(map[b.get_x()][b.get_y()].getOwner())){
+                        map[b.get_x() - 1][b.get_y()] = null;
+                        ((Pawn) getPieceAtPosition(b)).addKills();
+                    }
+                }
+                if(b.get_x() == 8){
+                    if(map[b.get_x()+1][b.get_y()]!=null && !map[b.get_x()+1][b.get_y()].getType().equals("♔") && !map[b.get_x()+1][b.get_y()].getOwner().equals(map[b.get_x()][b.get_y()].getOwner())){
+                        map[b.get_x() + 1][b.get_y()] = null;
+                        ((Pawn) getPieceAtPosition(b)).addKills();
+                    }
+                }
+            }
     }
    public boolean theKingIsSurrunder (){
 
-      int x =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_x();
-      int y =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_y();
+      //int x =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_x();
+      //int y =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_y();
+
+       int x = defencePositions[0].get_LastPosition().get_x();
+       int y = defencePositions[0].get_LastPosition().get_y();
 
       if((x > 0 && x < 10) && (y >0 && y <10)) {
         if (map[x + 1][y] != null && map[x + 1][y].getOwner().equals(attacker)) {
