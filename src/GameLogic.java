@@ -336,14 +336,14 @@ public class GameLogic implements PlayableLogic{
                 }
             }
     }
-    
+
    public boolean theKingIsSurrunder (){
 
-      //int x =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_x();
-      //int y =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_y();
+      int x =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_x();
+      int y =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_y();
 
-       int x = defencePositions[0].get_LastPosition().get_x();
-       int y = defencePositions[0].get_LastPosition().get_y();
+       //int x = defencePositions[0].get_LastPosition().get_x();
+       //int y = defencePositions[0].get_LastPosition().get_y();
 
       if((x > 0 && x < 10) && (y >0 && y <10)) {
         if (map[x + 1][y] != null && map[x + 1][y].getOwner().equals(attacker)) {
