@@ -336,6 +336,7 @@ public class GameLogic implements PlayableLogic{
                 }
             }
     }
+    
    public boolean theKingIsSurrunder (){
 
       //int x =  defencePositions[0]._positions.get(defencePositions[0]._positions.size()-1).get_x();
